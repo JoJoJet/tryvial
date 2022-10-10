@@ -1,13 +1,21 @@
-//! # Examples
+//! `tryvial` is a small crate for Ok-wrapping and try blocks.
+//! This crate is compatible with [`Result`], [`Option`], and any type implementing the unstable [`std::ops::Try`] trait.
+//!
+//! *This crate does not require nightly Rust.*
+//!
+//! # Overview
+//!
+//! The titular macro, [`tryvial`], is used to perform Ok-wrapping on the return value of a function.
 //!
 //! Before:
 //! ```
 //! fn main() -> Result<(), Box<dyn std::error::Error>> {
-//!     let x = some_fallible_operation()?;
-//!     println!("Hello, {x}!");
+//!     println!("Enter your name: ");
+//!     let mut name = String::new();
+//!     std::io::stdin().read_line(&mut name)?;
+//!     println!("Hello, {name}!");
 //!     Ok(()) // this is ugly
 //! }
-//! # fn some_fallible_operation() -> Result<&'static str, &'static str> { Ok("World") }
 //! ```
 //!
 //! After:
@@ -15,11 +23,36 @@
 //! # use tryvial::tryvial;
 //! #[tryvial]
 //! fn main() -> Result<(), Box<dyn std::error::Error>> {
-//!     let x = some_fallible_operation()?;
-//!     println!("Hello, {x}!");
+//!     println!("Enter your name: ");
+//!     let mut name = String::new();
+//!     std::io::stdin().read_line(&mut name)?;
+//!     println!("Hello, {name}!");
 //! }
-//! # fn some_fallible_operation() -> Result<&'static str, &'static str> { Ok("World") }
 //! ```
+//!
+//! The macro [`try_block`] is an implementation of "try blocks" from nightly rust.
+//!
+//! ```
+//! # use tryvial::try_block;
+//! # type T = (); type E = ();
+//! # fn do_one((): T) -> Result<T, E> { Ok(()) }
+//! # fn do_two((): T) -> Result<T, E> { Ok(()) }
+//! # let x = ();
+//! let result: Result<T, E> = try_block! {
+//!    let a = do_one(x)?;
+//!    let b = do_two(a)?;
+//!    b
+//! };
+//! ```
+//!
+//! The macro [`wrap_ok`] simply wraps an expression with the "ok" variant for a given [`Try`] type.
+//!
+//! ```
+//! # use tryvial::wrap_ok;
+//! assert_eq!(Some(42), wrap_ok!(42));
+//! ```
+//!
+//! [`Try`]: std::ops::Try
 
 pub use tryvial_proc::tryvial;
 
