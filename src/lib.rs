@@ -58,6 +58,7 @@
 //!
 //! [`Try`]: std::ops::Try
 
+#[cfg(feature = "proc-macro")]
 pub use tryvial_proc::tryvial;
 
 /// Performs "Ok-wrapping" on the result of an expression.
