@@ -7,7 +7,7 @@ description = "Small crate for ok-wrapping and try blocks"
 repository = "https://github.com/JoJoJet/tryvial"
 license = "MIT OR Apache-2.0"
 keywords = ["try", "result", "ok", "wrap", "no-std"]
-categories = ["Rust patterns", "No standard library"]
+categories = ["rust-patterns", "no-std"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
