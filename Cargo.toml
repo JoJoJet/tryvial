@@ -3,7 +3,13 @@ name = "tryvial"
 version = "0.1.0"
 edition = "2021"
 
+description = "Small crate for ok-wrapping and try blocks"
+repository = "https://github.com/JoJoJet/tryvial"
+license = "MIT OR Apache-2.0"
+keywords = ["try", "result", "ok", "wrap"]
+categories = ["Rust patterns"]
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-tryvial-proc = { path = "tryvial-proc" }
+tryvial-proc = { path = "tryvial-proc", version = "0.1.0" }

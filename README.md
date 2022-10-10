@@ -56,3 +56,5 @@ assert_eq!(Some(42), wrap_ok!(42));
 [`Try`]: std::ops::Try
 
 <!-- cargo-rdme end -->
+
+License: MIT or Apache-2.0
