@@ -2,8 +2,8 @@
 
 <!-- cargo-rdme start -->
 
-`tryvial` is a small crate for Ok-wrapping and try blocks.
-This crate is compatible with [`Result`], [`Option`], and any type implementing the unstable [`std::ops::Try`] trait.
+A small crate for Ok-wrapping and try blocks.
+This is compatible with [`Result`], [`Option`], and any type implementing the unstable [`std::ops::Try`] trait.
 
 *This crate does not require nightly Rust.*
 
