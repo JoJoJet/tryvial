@@ -58,6 +58,8 @@
 //!
 //! [`Try`]: std::ops::Try
 
+#![no_std]
+
 #[cfg(feature = "proc-macro")]
 pub use tryvial_proc::tryvial;
 
