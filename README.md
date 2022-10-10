@@ -57,4 +57,6 @@ assert_eq!(Some(42), wrap_ok!(42));
 
 <!-- cargo-rdme end -->
 
-License: MIT or Apache-2.0
+## License
+
+MIT or Apache-2.0
