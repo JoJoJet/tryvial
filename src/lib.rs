@@ -78,7 +78,7 @@ macro_rules! wrap_ok {
 /// let y: Result<_, std::num::ParseIntError> = try_block! {
 ///     "1".parse::<i32>()? + "2".parse::<i32>()?
 /// };
-/// # assert_eq!(y, Ok(3));
+/// assert_eq!(y, Ok(3));
 /// ```
 #[macro_export]
 macro_rules! try_block {
