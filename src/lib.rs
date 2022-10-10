@@ -30,6 +30,8 @@
 //! }
 //! ```
 //!
+//! ---
+//!
 //! The macro [`try_block`] is an implementation of "try blocks" from nightly rust.
 //!
 //! ```
@@ -44,6 +46,8 @@
 //!    b
 //! };
 //! ```
+//!
+//! ---
 //!
 //! The macro [`wrap_ok`] simply wraps an expression with the "ok" variant for a given [`Try`] type.
 //!
