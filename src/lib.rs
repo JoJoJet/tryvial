@@ -63,6 +63,8 @@ pub use tryvial_proc::tryvial;
 /// Performs "Ok-wrapping" on the result of an expression.
 /// This is compatible with [`Result`], [`Option`], [`ControlFlow`], and any type that
 /// implements the unstable [`std::ops::Try`] trait.
+///
+/// The destination type must be specified with a type ascription somewhere.
 #[macro_export]
 macro_rules! wrap_ok {
     ($e:expr) => {

@@ -7,6 +7,29 @@ use syn::ItemFn;
 /// This is compatible with [`Result`], [`Option`], [`ControlFlow`], and any type that
 /// implements the unstable [`std::ops::Try`] trait.
 ///
+/// Using this macro is equivalent to wrapping the body of a fn in a try block.
+///
+/// Nightly:
+/// ```ignore
+/// fn fallible_fn(x: T) -> Result<U, E> {
+///     try {
+///         let a = do_one(x)?;
+///         let b = do_two(a)?;
+///         b
+///     }
+/// }
+/// ```
+///
+/// With tryvial:
+/// ```ignore
+/// #[tryvial]
+/// fn fallible_fn(x: T) -> Result<U, E> {
+///     let a = do_one(x)?;
+///     let b = do_two(a)?;
+///     b
+/// }
+/// ```
+///
 /// [`ControlFlow`]: core::ops::ControlFlow
 #[proc_macro_attribute]
 pub fn tryvial(_attr: TokenStream, item: TokenStream) -> TokenStream {
