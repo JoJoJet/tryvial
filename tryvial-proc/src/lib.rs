@@ -46,7 +46,7 @@ fn impl_tryvial(item: ItemFn) -> TokenStream2 {
     } = item;
 
     quote! {
-        #(#[#attrs])*
+        #(#attrs)*
         #vis #sig {
             ::core::iter::empty().try_fold(#block, |_, __x: ::core::convert::Infallible| match __x {})
         }

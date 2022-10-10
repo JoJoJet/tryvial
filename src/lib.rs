@@ -93,3 +93,16 @@ macro_rules! try_block {
         }))()
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use core::ops::ControlFlow;
+
+    /// This is a doc comment.
+    #[tryvial]
+    /// And another one.
+    pub fn with_doc_comments() -> ControlFlow<usize> {
+        ControlFlow::Break(11)?;
+    }
+}
