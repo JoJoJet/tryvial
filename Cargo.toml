@@ -6,7 +6,7 @@ edition = "2021"
 description = "Small crate for ok-wrapping and try blocks"
 repository = "https://github.com/JoJoJet/tryvial"
 license = "MIT OR Apache-2.0"
-keywords = ["try", "result", "ok", "wrap", "no-std"]
+keywords = ["try", "catch", "ok", "wrap", "throw"]
 categories = ["rust-patterns", "no-std"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
