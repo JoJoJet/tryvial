@@ -39,7 +39,7 @@ pub fn tryvial(_attr: TokenStream, item: TokenStream) -> TokenStream {
 }
 
 fn impl_tryvial(input: TokenStream2) -> Result<TokenStream2, Error> {
-    let decl = venial::parse_declaration(input.into())?;
+    let decl = venial::parse_declaration(input)?;
     let Function {
         attributes,
         vis_marker,
