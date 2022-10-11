@@ -1,6 +1,6 @@
 [package]
 name = "tryvial"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 
 description = "Small crate for ok-wrapping and try blocks"
