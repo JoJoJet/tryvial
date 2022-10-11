@@ -104,4 +104,11 @@ mod tests {
     pub fn with_doc_comments() -> ControlFlow<usize> {
         ControlFlow::Break(11)?;
     }
+
+    #[tryvial]
+    pub fn generic_fn<T: PartialEq<U>, U>(x: T, y: U) -> ControlFlow<U> {
+        if x == y {
+            ControlFlow::Break(y)?;
+        }
+    }
 }
