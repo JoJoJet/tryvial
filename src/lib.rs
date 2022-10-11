@@ -104,4 +104,24 @@ mod tests {
     pub fn with_doc_comments() -> ControlFlow<usize> {
         ControlFlow::Break(11)?;
     }
+
+    #[tryvial]
+    unsafe fn generic_fn<T, U: Clone>(x: T, y: &U) -> ControlFlow<U>
+    where
+        T: PartialEq<U>,
+    {
+        if x == *y {
+            ControlFlow::Break(y.clone())?;
+        }
+    }
+
+    struct MyStruct(u32);
+
+    impl core::convert::TryFrom<&str> for MyStruct {
+        type Error = core::num::ParseIntError;
+        #[tryvial]
+        fn try_from(value: &str) -> Result<Self, Self::Error> {
+            Self(value.parse()?)
+        }
+    }
 }

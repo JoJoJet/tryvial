@@ -1,7 +1,7 @@
 use proc_macro::TokenStream;
 use proc_macro2::TokenStream as TokenStream2;
 use quote::quote;
-use syn::ItemFn;
+use venial::{Declaration, Error, Function};
 
 /// An attribute macro that performs "Ok-wrapping" on the return value of a `fn` item.
 /// This is compatible with [`Result`], [`Option`], [`ControlFlow`], and any type that
@@ -33,22 +33,44 @@ use syn::ItemFn;
 /// [`ControlFlow`]: core::ops::ControlFlow
 #[proc_macro_attribute]
 pub fn tryvial(_attr: TokenStream, item: TokenStream) -> TokenStream {
-    let item = syn::parse_macro_input!(item as ItemFn);
-    impl_tryvial(item).into()
+    impl_tryvial(item.into())
+        .unwrap_or_else(|e| e.to_compile_error())
+        .into()
 }
 
-fn impl_tryvial(item: ItemFn) -> TokenStream2 {
-    let ItemFn {
-        attrs,
-        vis,
-        sig,
-        block,
-    } = item;
+fn impl_tryvial(input: TokenStream2) -> Result<TokenStream2, Error> {
+    let decl = venial::parse_declaration(input)?;
+    let Function {
+        attributes,
+        vis_marker,
+        qualifiers,
+        tk_fn_keyword,
+        name,
+        generic_params,
+        tk_params_parens: _,
+        params,
+        where_clause,
+        tk_return_arrow: _,
+        return_ty,
+        tk_semicolon: _,
+        body,
+    } = match decl {
+        Declaration::Function(item) => item,
+        _ => Err(Error::new("`#[tryvial]` is supported only on `fn` items"))?,
+    };
 
-    quote! {
-        #(#attrs)*
-        #vis #sig {
-            ::core::iter::empty().try_fold(#block, |_, __x: ::core::convert::Infallible| match __x {})
+    let body = body.ok_or(Error::new(
+        "`#[tryvial]` can only be used on functions with a body",
+    ))?;
+
+    let return_ty = return_ty.map_or_else(|| quote! { () }, |ty| quote! { #ty });
+
+    Ok(quote! {
+        #(#attributes)*
+        #vis_marker #qualifiers #tk_fn_keyword #name #generic_params ( #params ) -> #return_ty
+        #where_clause
+        {
+            ::core::iter::empty().try_fold(#body, |_, __x: ::core::convert::Infallible| match __x {})
         }
-    }
+    })
 }
