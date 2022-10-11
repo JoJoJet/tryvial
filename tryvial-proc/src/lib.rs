@@ -56,13 +56,11 @@ fn impl_tryvial(input: TokenStream2) -> Result<TokenStream2, Error> {
         body,
     } = match decl {
         Declaration::Function(item) => item,
-        _ => Err(Error::new(
-            "attribute `#[tryvial]` is supported only on `fn` items",
-        ))?,
+        _ => Err(Error::new("`#[tryvial]` is supported only on `fn` items"))?,
     };
 
     let body = body.ok_or(Error::new(
-        "attribute `#[tryvial]` can only be used on functions with a body",
+        "`#[tryvial]` can only be used on functions with a body",
     ))?;
 
     let return_ty = return_ty.map_or_else(|| quote! { () }, |ty| quote! { #ty });
