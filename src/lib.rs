@@ -106,7 +106,7 @@ mod tests {
     }
 
     #[tryvial]
-    pub fn generic_fn<T, U: Clone>(x: T, y: &U) -> ControlFlow<U>
+    unsafe fn generic_fn<T, U: Clone>(x: T, y: &U) -> ControlFlow<U>
     where
         T: PartialEq<U>,
     {
