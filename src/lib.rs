@@ -50,7 +50,7 @@
 //!
 //! ---
 //!
-//! The macro [`wrap_ok`](crate::wrap_ok) simply wraps an expression with the "ok" variant for a given [`Try`] type.
+//! The macro [`wrap_ok`](crate::wrap_ok) simply wraps an expression with the "ok" variant for a given `Try` type.
 //!
 //! ```
 //! # use tryvial::wrap_ok;

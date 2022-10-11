@@ -48,7 +48,7 @@ let result: Result<T, E> = try_block! {
 
 ---
 
-The macro [`wrap_ok`](https://docs.rs/tryvial/latest/tryvial/macro.wrap_ok.html) simply wraps an expression with the "ok" variant for a given [`Try`] type.
+The macro [`wrap_ok`](https://docs.rs/tryvial/latest/tryvial/macro.wrap_ok.html) simply wraps an expression with the "ok" variant for a given `Try` type.
 
 ```rust
 assert_eq!(Some(42), wrap_ok!(42));
