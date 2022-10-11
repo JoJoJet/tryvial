@@ -3,13 +3,14 @@
 <!-- cargo-rdme start -->
 
 A small crate for Ok-wrapping and try blocks.
-This is compatible with [`Result`], [`Option`], and any type implementing the unstable [`std::ops::Try`] trait.
+This is compatible with [`Result`](https://doc.rust-lang.org/stable/core/result/enum.Result.html), [`Option`](https://doc.rust-lang.org/stable/core/option/enum.Option.html),
+and any type implementing the unstable [`std::ops::Try`](https://doc.rust-lang.org/std/ops/trait.Try.html) trait.
 
 *This crate does not require nightly Rust.*
 
 ## Overview
 
-The titular macro, [`tryvial`], is used to perform Ok-wrapping on the return value of a function.
+The titular macro, `tryvial`, is used to perform Ok-wrapping on the return value of a function.
 
 Before:
 ```rust
@@ -35,7 +36,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 ---
 
-The macro [`try_block`] is an implementation of "try blocks" from nightly rust.
+The macro [`try_block`](https://docs.rs/tryvial/latest/tryvial/macro.try_block.html) is an implementation of "try blocks" from nightly rust.
 
 ```rust
 let result: Result<T, E> = try_block! {
@@ -47,13 +48,11 @@ let result: Result<T, E> = try_block! {
 
 ---
 
-The macro [`wrap_ok`] simply wraps an expression with the "ok" variant for a given [`Try`] type.
+The macro [`wrap_ok`](https://docs.rs/tryvial/latest/tryvial/macro.wrap_ok.html) simply wraps an expression with the "ok" variant for a given [`Try`] type.
 
 ```rust
 assert_eq!(Some(42), wrap_ok!(42));
 ```
-
-[`Try`]: std::ops::Try
 
 <!-- cargo-rdme end -->
 

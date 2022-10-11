@@ -1,11 +1,12 @@
 //! A small crate for Ok-wrapping and try blocks.
-//! This is compatible with [`Result`], [`Option`], and any type implementing the unstable [`std::ops::Try`] trait.
+//! This is compatible with [`Result`](::core::result::Result), [`Option`](::core::option::Option),
+//! and any type implementing the unstable [`std::ops::Try`](https://doc.rust-lang.org/std/ops/trait.Try.html) trait.
 //!
 //! *This crate does not require nightly Rust.*
 //!
 //! # Overview
 //!
-//! The titular macro, [`tryvial`], is used to perform Ok-wrapping on the return value of a function.
+//! The titular macro, `tryvial`, is used to perform Ok-wrapping on the return value of a function.
 //!
 //! Before:
 //! ```
@@ -32,7 +33,7 @@
 //!
 //! ---
 //!
-//! The macro [`try_block`] is an implementation of "try blocks" from nightly rust.
+//! The macro [`try_block`](crate::try_block) is an implementation of "try blocks" from nightly rust.
 //!
 //! ```
 //! # use tryvial::try_block;
@@ -49,14 +50,12 @@
 //!
 //! ---
 //!
-//! The macro [`wrap_ok`] simply wraps an expression with the "ok" variant for a given [`Try`] type.
+//! The macro [`wrap_ok`](crate::wrap_ok) simply wraps an expression with the "ok" variant for a given [`Try`] type.
 //!
 //! ```
 //! # use tryvial::wrap_ok;
 //! assert_eq!(Some(42), wrap_ok!(42));
 //! ```
-//!
-//! [`Try`]: std::ops::Try
 
 #![no_std]
 
