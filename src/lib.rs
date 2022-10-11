@@ -114,4 +114,14 @@ mod tests {
             ControlFlow::Break(y.clone())?;
         }
     }
+
+    struct MyStruct(u32);
+
+    impl core::convert::TryFrom<&str> for MyStruct {
+        type Error = core::num::ParseIntError;
+        #[tryvial]
+        fn try_from(value: &str) -> Result<Self, Self::Error> {
+            Self(value.parse()?)
+        }
+    }
 }
