@@ -94,6 +94,9 @@ macro_rules! try_block {
 }
 
 #[cfg(test)]
+extern crate alloc;
+
+#[cfg(test)]
 mod tests {
     use super::*;
     use core::ops::ControlFlow;
@@ -103,6 +106,11 @@ mod tests {
     /// And another one.
     pub fn with_doc_comments() -> ControlFlow<usize> {
         ControlFlow::Break(11)?;
+    }
+
+    #[test]
+    fn test_with_doc() {
+        assert!(matches!(with_doc_comments(), ControlFlow::Break(11)));
     }
 
     #[try_fn]
@@ -115,6 +123,15 @@ mod tests {
         }
     }
 
+    #[test]
+    fn test_generic_fn() {
+        use alloc::borrow::ToOwned;
+        match unsafe { generic_fn("Hello, world", &"Hello, world".to_owned()) } {
+            ControlFlow::Break(s) => assert_eq!(s, "Hello, world"),
+            ControlFlow::Continue(()) => unreachable!(),
+        }
+    }
+
     struct MyStruct(u32);
 
     impl core::convert::TryFrom<&str> for MyStruct {
@@ -123,5 +140,10 @@ mod tests {
         fn try_from(value: &str) -> Result<Self, Self::Error> {
             Self(value.parse()?)
         }
+    }
+
+    #[test]
+    fn test_parse() {
+        assert!(matches!("34".try_into(), Ok(MyStruct(34))));
     }
 }
