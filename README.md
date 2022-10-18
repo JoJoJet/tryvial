@@ -10,7 +10,7 @@ and any type implementing the unstable [`std::ops::Try`](https://doc.rust-lang.o
 
 ## Overview
 
-The titular macro, `tryvial`, is used to perform Ok-wrapping on the return value of a function.
+The macro `try_fn` is used to perform Ok-wrapping on the return value of a function.
 
 Before:
 ```rust
@@ -25,7 +25,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 After:
 ```rust
-#[tryvial]
+#[try_fn]
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     println!("Enter your name: ");
     let mut name = String::new();

@@ -20,9 +20,9 @@ use venial::{Declaration, Error, Function};
 /// }
 /// ```
 ///
-/// With tryvial:
+/// With `try_fn`:
 /// ```ignore
-/// #[tryvial]
+/// #[try_fn]
 /// fn fallible_fn(x: T) -> Result<U, E> {
 ///     let a = do_one(x)?;
 ///     let b = do_two(a)?;
@@ -32,13 +32,21 @@ use venial::{Declaration, Error, Function};
 ///
 /// [`ControlFlow`]: core::ops::ControlFlow
 #[proc_macro_attribute]
-pub fn tryvial(_attr: TokenStream, item: TokenStream) -> TokenStream {
-    impl_tryvial(item.into())
+pub fn try_fn(_attr: TokenStream, item: TokenStream) -> TokenStream {
+    impl_try_fn(item.into())
         .unwrap_or_else(|e| e.to_compile_error())
         .into()
 }
 
-fn impl_tryvial(input: TokenStream2) -> Result<TokenStream2, Error> {
+#[proc_macro_attribute]
+#[deprecated(note = "renamed to `try_fn`")]
+pub fn tryvial(_attr: TokenStream, item: TokenStream) -> TokenStream {
+    impl_try_fn(item.into())
+        .unwrap_or_else(|e| e.to_compile_error())
+        .into()
+}
+
+fn impl_try_fn(input: TokenStream2) -> Result<TokenStream2, Error> {
     let decl = venial::parse_declaration(input)?;
     let Function {
         attributes,
@@ -56,11 +64,11 @@ fn impl_tryvial(input: TokenStream2) -> Result<TokenStream2, Error> {
         body,
     } = match decl {
         Declaration::Function(item) => item,
-        _ => Err(Error::new("`#[tryvial]` is supported only on `fn` items"))?,
+        _ => Err(Error::new("`#[try_fn]` is supported only on `fn` items"))?,
     };
 
     let body = body.ok_or(Error::new(
-        "`#[tryvial]` can only be used on functions with a body",
+        "`#[try_fn]` can only be used on functions with a body",
     ))?;
 
     let return_ty = return_ty.map_or_else(|| quote! { () }, |ty| quote! { #ty });

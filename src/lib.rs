@@ -6,7 +6,7 @@
 //!
 //! # Overview
 //!
-//! The titular macro, `tryvial`, is used to perform Ok-wrapping on the return value of a function.
+//! The macro `try_fn` is used to perform Ok-wrapping on the return value of a function.
 //!
 //! Before:
 //! ```
@@ -21,8 +21,8 @@
 //!
 //! After:
 //! ```
-//! # use tryvial::tryvial;
-//! #[tryvial]
+//! # use tryvial::try_fn;
+//! #[try_fn]
 //! fn main() -> Result<(), Box<dyn std::error::Error>> {
 //!     println!("Enter your name: ");
 //!     let mut name = String::new();
@@ -60,7 +60,7 @@
 #![no_std]
 
 #[cfg(feature = "proc-macro")]
-pub use tryvial_proc::tryvial;
+pub use tryvial_proc::{try_fn, tryvial};
 
 /// Performs "Ok-wrapping" on the result of an expression.
 /// This is compatible with [`Result`], [`Option`], [`ControlFlow`], and any type that
@@ -99,13 +99,13 @@ mod tests {
     use core::ops::ControlFlow;
 
     /// This is a doc comment.
-    #[tryvial]
+    #[try_fn]
     /// And another one.
     pub fn with_doc_comments() -> ControlFlow<usize> {
         ControlFlow::Break(11)?;
     }
 
-    #[tryvial]
+    #[try_fn]
     unsafe fn generic_fn<T, U: Clone>(x: T, y: &U) -> ControlFlow<U>
     where
         T: PartialEq<U>,
@@ -119,7 +119,7 @@ mod tests {
 
     impl core::convert::TryFrom<&str> for MyStruct {
         type Error = core::num::ParseIntError;
-        #[tryvial]
+        #[try_fn]
         fn try_from(value: &str) -> Result<Self, Self::Error> {
             Self(value.parse()?)
         }
