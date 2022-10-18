@@ -1,6 +1,6 @@
 [package]
 name = "tryvial"
-version = "0.1.2"
+version = "0.2.0"
 edition = "2021"
 
 description = "Small crate for ok-wrapping and try blocks"
@@ -12,7 +12,7 @@ categories = ["rust-patterns", "no-std"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-tryvial-proc = { path = "tryvial-proc", version = "0.1.0", optional = true }
+tryvial-proc = { path = "tryvial-proc", version = "0.2.0", optional = true }
 
 [features]
 default = ["proc-macro"]
